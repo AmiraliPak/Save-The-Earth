@@ -6,12 +6,21 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] float moveSpeed;
     [SerializeField] float rotationSpeed;
-    [SerializeField] float shootPower; // temp: should be in weapon properties;
+    [SerializeField] float shootPower;
+    [SerializeField] float shootRate;
+    [SerializeField] float damage;
+    static public float Damage { get; private set; }
     float MoveAmount { get => Time.deltaTime * moveSpeed; }
     float RotationAmount { get => Time.deltaTime * rotationSpeed; }
     Camera mainCam;
     Transform weapon, body;
+    public GameObject bulletPrefab;
+    IEnumerator shootCoroutine = null;
 
+    void Awake()
+    {
+        Damage = damage;
+    }
     void Start()
     {
         mainCam = Camera.main;
@@ -28,15 +37,22 @@ public class PlayerController : MonoBehaviour
     void HandleMovement()
     {
         var verticalMovement = Input.GetAxis("Vertical") * MoveAmount;
-        var horizontalMovement = Input.GetAxis("Horizontal") * MoveAmount;
-        var rotationMovement = Input.GetAxis("Mouse X") * RotationAmount;
-        transform.Rotate(new Vector3(-verticalMovement, rotationMovement, horizontalMovement));
+        var horizontalMovement = Input.GetAxis("Horizontal") * RotationAmount;
+        // var rotationMovement = Input.GetAxis("Mouse X") * RotationAmount;
+        transform.Rotate(new Vector3(-verticalMovement, horizontalMovement));
     }
 
     void HandleShoot()
     {
-        if(Input.GetMouseButton(0))
-            ShootWeapon();
+        if(Input.GetMouseButtonDown(0))
+        {
+            shootCoroutine = ShootCoroutine();
+            StartCoroutine(shootCoroutine);
+        }
+        if(Input.GetMouseButtonUp(0))
+        {
+            StopCoroutine(shootCoroutine);
+        }
     }
 
     void AimAtCursor()
@@ -53,12 +69,19 @@ public class PlayerController : MonoBehaviour
 
     void ShootWeapon()
     {
-        var bullet = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-        bullet.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
-        bullet.transform.position = weapon.position + 2*weapon.forward;
-        var rb = bullet.AddComponent<Rigidbody>();
-        rb.useGravity = false;
-        rb.AddForce(weapon.forward * shootPower, ForceMode.Impulse);
+        var bulletPos = weapon.position + 2*weapon.forward;
+        var bullet = GameObject.Instantiate(bulletPrefab, bulletPos, Quaternion.identity);
+        var bulletRb = bullet.GetComponent<Rigidbody>();
+        bulletRb.AddForce(weapon.forward * shootPower, ForceMode.Impulse);
+    }
+
+    IEnumerator ShootCoroutine()
+    {
+        while(true)
+        {
+            ShootWeapon();
+            yield return new WaitForSeconds(1f / shootRate);
+        }
     }
 
     Transform GetPointedObjectTransform(Vector3 mousePosition)
