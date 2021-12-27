@@ -8,19 +8,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float rotationSpeed;
     [SerializeField] float shootPower;
     [SerializeField] float shootRate;
-    [SerializeField] float damage;
-    static public float Damage { get; private set; }
     float MoveAmount { get => Time.deltaTime * moveSpeed; }
     float RotationAmount { get => Time.deltaTime * rotationSpeed; }
-    Camera mainCam;
-    Transform weapon, body;
     public GameObject bulletPrefab;
+    Transform weapon, body;
+    Camera mainCam;
     IEnumerator shootCoroutine = null;
+    [SerializeField] float autoLockDuration;
 
-    void Awake()
-    {
-        Damage = damage;
-    }
     void Start()
     {
         mainCam = Camera.main;
@@ -55,13 +50,21 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    float lockDuration = 0f;
+    Vector3 aim;
     void AimAtCursor()
     {
-        Vector3 aim, mousePos = Input.mousePosition;
+        Vector3 mousePos = Input.mousePosition;
         var tr = GetPointedObjectTransform(mousePos);
         if(tr != null)
+        {
+            lockDuration = autoLockDuration;
             aim = tr.position;
+        }
         else
+            lockDuration -= Time.deltaTime;
+
+        if (lockDuration <= 0f) 
             aim = mainCam.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, mainCam.farClipPlane));
 
         weapon.LookAt(aim);
