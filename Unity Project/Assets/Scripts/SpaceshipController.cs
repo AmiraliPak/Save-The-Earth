@@ -3,24 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpaceshipController : MonoBehaviour
+public class SpaceshipController : Destructible
 {
     [SerializeField] float moveSpeed;
     [SerializeField] float rotationSpeed;
-    float MoveAmount { get => Time.deltaTime * moveSpeed; }
-    float RotationAmount { get => Time.deltaTime * rotationSpeed; }
-    [SerializeField] float life;
     [SerializeField] float shootPower;
     [SerializeField] float shootRate;
-    [SerializeField] float damage;
-    static public float Damage { get; private set; }
+    float MoveAmount { get => Time.deltaTime * moveSpeed; }
+    float RotationAmount { get => Time.deltaTime * rotationSpeed; }
     public GameObject bulletPrefab;
     Transform body;
 
-    void Awake()
-    {
-        Damage = damage;
-    }
     void Start()
     {
         body = transform.Find("Body");
@@ -68,5 +61,10 @@ public class SpaceshipController : MonoBehaviour
             rand3 = UnityEngine.Random.Range(-1f, 1f);
             yield return new WaitForSeconds(4f);
         }
+    }
+
+    public override void OnDestruction()
+    {
+        
     }
 }
