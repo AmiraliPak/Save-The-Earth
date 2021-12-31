@@ -9,6 +9,6 @@ public class PlanetController : Destructible
     {
         Debug.Log("Planet Destroyed! GAME OVER");
         // emit event ?
-        UnityEditor.EditorApplication.isPlaying = false;
+        // UnityEditor.EditorApplication.isPlaying = false;
     }
 }
