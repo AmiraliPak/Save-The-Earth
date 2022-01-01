@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float shootRate;
     float MoveAmount { get => Time.deltaTime * moveSpeed; }
     float RotationAmount { get => Time.deltaTime * rotationSpeed; }
-    public GameObject bulletPrefab;
+    public GameObject bulletPrefab, missilePrefab;
     Transform weapon, body;
     Camera mainCam;
     IEnumerator shootCoroutine = null;
@@ -48,18 +48,23 @@ public class PlayerController : MonoBehaviour
         {
             StopCoroutine(shootCoroutine);
         }
+        if(Input.GetMouseButtonDown(1))
+        {
+            ShootMissile();
+        }
     }
 
     float lockDuration = 0f;
     Vector3 aim;
+    Transform target = null;
     void AimAtCursor()
     {
         Vector3 mousePos = Input.mousePosition;
-        var tr = GetPointedObjectTransform(mousePos);
-        if(tr != null)
+        target = GetPointedObjectTransform(mousePos);
+        if(target != null)
         {
             lockDuration = autoLockDuration;
-            aim = tr.position;
+            aim = target.position;
         }
         else
             lockDuration -= Time.deltaTime;
@@ -76,6 +81,15 @@ public class PlayerController : MonoBehaviour
         var bullet = GameObject.Instantiate(bulletPrefab, bulletPos, Quaternion.identity);
         var bulletRb = bullet.GetComponent<Rigidbody>();
         bulletRb.AddForce(weapon.forward * shootPower, ForceMode.Impulse);
+    }
+
+    void ShootMissile()
+    {
+        if(target == null) return;
+        var pos = weapon.position + 2*weapon.forward;
+        var obj = GameObject.Instantiate(missilePrefab, pos, Quaternion.identity);
+        var missile = obj.GetComponent<Missile>();
+        missile.LockOn(target);
     }
 
     IEnumerator ShootCoroutine()
