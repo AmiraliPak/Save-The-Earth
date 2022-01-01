@@ -3,8 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpaceshipController : Destructible
+public class SpaceshipController : Destructible, ISpawnable
 {
+    public float MinHeight { get => 58; }
+    public float MaxHeight { get => 63; }
     [SerializeField] float moveSpeed;
     [SerializeField] float rotationSpeed;
     [SerializeField] float shootPower;
@@ -13,9 +15,11 @@ public class SpaceshipController : Destructible
     float RotationAmount { get => Time.deltaTime * rotationSpeed; }
     public GameObject bulletPrefab;
     Transform body;
+    Rigidbody rb;
 
     void Start()
     {
+        rb = GetComponent<Rigidbody>();
         body = transform.Find("Body");
         StartCoroutine(ShootCoroutine());
         StartCoroutine(RandGenCoroutine());
@@ -32,7 +36,7 @@ public class SpaceshipController : Destructible
         var verticalMovement = rand1 * MoveAmount;
         var horizontalMovement = rand2 * MoveAmount;
         var rotationMovement = rand3 * RotationAmount;
-        transform.Rotate(new Vector3(-verticalMovement, rotationMovement, horizontalMovement));
+        rb.MoveRotation(rb.rotation * Quaternion.Euler(-verticalMovement, rotationMovement, horizontalMovement));
     }
 
     void ShootWeapon()
