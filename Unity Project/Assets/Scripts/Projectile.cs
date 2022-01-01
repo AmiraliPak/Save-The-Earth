@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
-// bullets and asteroids : deal damage on impact, get destroyed afterwards
-public class Projectile : MonoBehaviour
+// bullets : deal damage on impact, get destroyed afterwards
+public class Projectile : MonoBehaviour, IProjectile
 {
     [SerializeField] float _damage;
     public float Damage { get => _damage; }
@@ -23,4 +23,10 @@ public class Projectile : MonoBehaviour
     {
         gameObject.SetActive(false);
     }
+}
+
+public interface IProjectile
+{
+    float Damage { get; }
+    void Deactivate();
 }

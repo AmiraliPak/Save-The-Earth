@@ -9,7 +9,8 @@ public abstract class Destructible : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Projectile"))
         {
-            Projectile projectile = collision.gameObject.GetComponent<Projectile>();
+            IProjectile projectile = collision.gameObject.GetComponent<IProjectile>();
+            if(projectile == null) projectile = collision.gameObject.GetComponentInParent<IProjectile>();
             Debug.Log(this.GetType().ToString() + " got hit: -" + projectile.Damage.ToString());
             AddLife(-projectile.Damage);
             projectile.Deactivate();
