@@ -41,10 +41,10 @@ public class ObjectSpawner : MonoBehaviour
     }
 
     void Spawn(GameObject prefab, float height, Quaternion rotations){
-        var obj = Instantiate(prefab, Vector3.zero, rotations);
+        var obj = Instantiate(prefab, Vector3.zero, Quaternion.identity);
         var body = obj.transform.Find("Body");
         body.transform.localPosition = new Vector3(0, height);
-        // obj.transform.rotation = rotations;
+        obj.transform.rotation = rotations;
         Debug.Log("Object spawned");
     }
 
