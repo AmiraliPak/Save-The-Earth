@@ -19,8 +19,11 @@ public class Missile : Projectile
     {
         if(isLocked)
         {
-            transform.LookAt(target);
-            rb.MovePosition(rb.position + transform.forward * MoveAmount);
+            if(target != null && target.gameObject.activeInHierarchy) {
+                transform.LookAt(target);
+                transform.Rotate(0, -90f, 0);
+            }
+            rb.MovePosition(rb.position + transform.right * MoveAmount);
         }
     }
 
