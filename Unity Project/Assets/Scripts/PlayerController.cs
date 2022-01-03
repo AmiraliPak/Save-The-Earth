@@ -41,6 +41,8 @@ public class PlayerController : MonoBehaviour
     {
         if(Input.GetMouseButtonDown(0))
         {
+            if(shootCoroutine != null)
+                StopCoroutine(shootCoroutine);
             shootCoroutine = ShootCoroutine();
             StartCoroutine(shootCoroutine);
         }
@@ -105,7 +107,7 @@ public class PlayerController : MonoBehaviour
     {
         Ray ray = Camera.main.ScreenPointToRay(mousePosition);
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, 100))
+        if (Physics.Raycast(ray, out hit, 200))
             if (hit.collider != null)
                 return hit.collider.transform;
         return null;
