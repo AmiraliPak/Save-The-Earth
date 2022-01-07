@@ -11,15 +11,14 @@ public class PlayerController : MonoBehaviour
     float MoveAmount { get => Time.deltaTime * moveSpeed; }
     float RotationAmount { get => Time.deltaTime * rotationSpeed; }
     public GameObject bulletPrefab, missilePrefab;
-    Transform weapon, body;
     Camera mainCam;
     IEnumerator shootCoroutine = null;
+    [SerializeField] Transform barrelTranform, spawnPoint;
     [SerializeField] float autoLockDuration;
 
     void Start()
     {
         mainCam = Camera.main;
-        weapon = transform.Find("Body").Find("Weapon");
     }
 
     void Update()
@@ -63,7 +62,7 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 mousePos = Input.mousePosition;
         target = GetPointedObjectTransform(mousePos);
-        if(target != null)
+        if(target != null && target.position != Vector3.zero)
         {
             lockDuration = autoLockDuration;
             aim = target.position;
@@ -72,23 +71,23 @@ public class PlayerController : MonoBehaviour
             lockDuration -= Time.deltaTime;
 
         if (lockDuration <= 0f) 
-            aim = mainCam.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, mainCam.farClipPlane));
+            aim = mainCam.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, 0.5f*mainCam.farClipPlane));
 
-        weapon.LookAt(aim);
+        barrelTranform.LookAt(aim, transform.up);
     }
 
-    void ShootWeapon()
+    void ShootbarrelTranform()
     {
-        var bulletPos = weapon.position + 2*weapon.forward;
-        var bullet = GameObject.Instantiate(bulletPrefab, bulletPos, Quaternion.identity);
+        // var bulletPos = barrelTranform.position + 2*barrelTranform.forward;
+        var bullet = GameObject.Instantiate(bulletPrefab, spawnPoint.position, Quaternion.identity);
         var bulletRb = bullet.GetComponent<Rigidbody>();
-        bulletRb.AddForce(weapon.forward * shootPower, ForceMode.Impulse);
+        bulletRb.AddForce(barrelTranform.forward * shootPower, ForceMode.Impulse);
     }
 
     void ShootMissile()
     {
         if(target == null) return;
-        var pos = weapon.position + 2*weapon.forward;
+        var pos = spawnPoint.position + spawnPoint.forward;
         var obj = GameObject.Instantiate(missilePrefab, pos, Quaternion.identity);
         var missile = obj.GetComponent<Missile>();
         missile.LockOn(target);
@@ -98,7 +97,7 @@ public class PlayerController : MonoBehaviour
     {
         while(true)
         {
-            ShootWeapon();
+            ShootbarrelTranform();
             yield return new WaitForSeconds(1f / shootRate);
         }
     }
@@ -107,7 +106,7 @@ public class PlayerController : MonoBehaviour
     {
         Ray ray = Camera.main.ScreenPointToRay(mousePosition);
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, 200))
+        if (Physics.Raycast(ray, out hit, 500))
             if (hit.collider != null)
                 return hit.collider.transform;
         return null;
