@@ -5,6 +5,10 @@ using UnityEngine;
 
 public class PlanetController : Destructible
 {
+    void Start()
+    {
+        friendlyFire = false;
+    }
     public override void OnDestruction()
     {
         Debug.Log("Planet Destroyed! GAME OVER");

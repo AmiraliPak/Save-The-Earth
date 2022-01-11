@@ -62,7 +62,7 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 mousePos = Input.mousePosition;
         target = GetPointedObjectTransform(mousePos);
-        if(target != null && target.position != Vector3.zero)
+        if(target != null)
         {
             lockDuration = autoLockDuration;
             aim = target.position;
@@ -78,6 +78,7 @@ public class PlayerController : MonoBehaviour
 
     void ShootbarrelTranform()
     {
+        if(aim == Vector3.zero) return;
         // var bulletPos = barrelTranform.position + 2*barrelTranform.forward;
         var bullet = GameObject.Instantiate(bulletPrefab, spawnPoint.position, Quaternion.identity);
         var bulletRb = bullet.GetComponent<Rigidbody>();
@@ -86,7 +87,7 @@ public class PlayerController : MonoBehaviour
 
     void ShootMissile()
     {
-        if(target == null) return;
+        if(target == null || target.position == Vector3.zero) return;
         var pos = spawnPoint.position + spawnPoint.forward;
         var obj = GameObject.Instantiate(missilePrefab, pos, Quaternion.identity);
         var missile = obj.GetComponent<Missile>();

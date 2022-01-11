@@ -170,7 +170,7 @@ GameObject:
   - component: {fileID: 6819978033070596774}
   - component: {fileID: 6819370427757036182}
   - component: {fileID: 6760077701754769508}
-  - component: {fileID: 6719850605870094736}
+  - component: {fileID: 2096902900640379575}
   m_Layer: 0
   m_Name: fire
   m_TagString: Untagged
@@ -4930,7 +4930,7 @@ LensFlare:
     serializedVersion: 2
     m_Bits: 6
   m_Directional: 0
---- !u!82 &6719850605870094736
+--- !u!82 &2096902900640379575
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4949,11 +4949,11 @@ AudioSource:
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
-  DopplerLevel: 1
+  DopplerLevel: 0
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 50
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -4986,7 +4986,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
