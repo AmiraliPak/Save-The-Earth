@@ -6,6 +6,12 @@ public class Projectile : MonoBehaviour, IProjectile
     [SerializeField] float _damage;
     public float Damage { get => _damage; }
     // GameObject DestructionPrefab;
+    protected Rigidbody rb;
+
+    void Awake()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
 
     void OnCollisionEnter(Collision collision)
     {
