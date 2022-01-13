@@ -10,15 +10,17 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float shootRate;
     float MoveAmount { get => Time.deltaTime * moveSpeed; }
     float RotationAmount { get => Time.deltaTime * rotationSpeed; }
-    public GameObject bulletPrefab, missilePrefab;
     Camera mainCam;
-    IEnumerator shootCoroutine = null;
     [SerializeField] Transform barrelTranform, spawnPoint;
     [SerializeField] float autoLockDuration;
+    Weapon[] weapons;
 
     void Start()
     {
         mainCam = Camera.main;
+        weapons = new Weapon[2];
+        weapons[0] = new SimpleWeapon(shootPower, shootRate);
+        weapons[1] = new MissileWeapon();
     }
 
     void Update()
@@ -38,20 +40,19 @@ public class PlayerController : MonoBehaviour
 
     void HandleShoot()
     {
-        if(Input.GetMouseButtonDown(0))
+        bool shootAllowed = aim != Vector3.zero && target?.position != Vector3.zero;
+        
+        for(int i = 0; i < weapons.Length; i++)
         {
-            if(shootCoroutine != null)
-                StopCoroutine(shootCoroutine);
-            shootCoroutine = ShootCoroutine();
-            StartCoroutine(shootCoroutine);
-        }
-        if(Input.GetMouseButtonUp(0))
-        {
-            StopCoroutine(shootCoroutine);
-        }
-        if(Input.GetMouseButtonDown(1))
-        {
-            ShootMissile();
+            if(Input.GetMouseButton(i) && shootAllowed)
+                weapons[i].ActivateOnHold(aim, target, spawnPoint.position);
+            else
+                weapons[i].DeactivateOnHold();
+
+            if(Input.GetMouseButtonDown(i) && shootAllowed)
+                weapons[i].ActivateOnDown(aim, target, spawnPoint.position);
+            if(Input.GetMouseButtonUp(i))
+                weapons[i].DeactivateOnUp();
         }
     }
 
@@ -76,32 +77,6 @@ public class PlayerController : MonoBehaviour
         barrelTranform.LookAt(aim, transform.up);
     }
 
-    void ShootbarrelTranform()
-    {
-        if(aim == Vector3.zero) return;
-        // var bulletPos = barrelTranform.position + 2*barrelTranform.forward;
-        var bullet = GameObject.Instantiate(bulletPrefab, spawnPoint.position, Quaternion.identity);
-        var bulletRb = bullet.GetComponent<Rigidbody>();
-        bulletRb.AddForce(barrelTranform.forward * shootPower, ForceMode.Impulse);
-    }
-
-    void ShootMissile()
-    {
-        if(target == null || target.position == Vector3.zero) return;
-        var pos = spawnPoint.position + spawnPoint.forward;
-        var obj = GameObject.Instantiate(missilePrefab, pos, Quaternion.identity);
-        var missile = obj.GetComponent<Missile>();
-        missile.LockOn(target);
-    }
-
-    IEnumerator ShootCoroutine()
-    {
-        while(true)
-        {
-            ShootbarrelTranform();
-            yield return new WaitForSeconds(1f / shootRate);
-        }
-    }
 
     Transform GetPointedObjectTransform(Vector3 mousePosition)
     {
