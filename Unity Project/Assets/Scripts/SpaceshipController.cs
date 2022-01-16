@@ -16,13 +16,17 @@ public class SpaceshipController : Destructible, ISpawnable
     public GameObject bulletPrefab;
     Transform body;
     Rigidbody rb;
-
+   
+   
     void Start()
     {
+       
         rb = GetComponent<Rigidbody>();
         body = transform.Find("Body");
         StartCoroutine(ShootCoroutine());
         StartCoroutine(RandGenCoroutine());
+       
+       
     }
 
     void Update()
@@ -67,8 +71,5 @@ public class SpaceshipController : Destructible, ISpawnable
         }
     }
 
-    public override void OnDestruction()
-    {
-        
-    }
+
 }

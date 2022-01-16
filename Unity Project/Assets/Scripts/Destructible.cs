@@ -4,6 +4,7 @@
 public abstract class Destructible : MonoBehaviour
 {
     [SerializeField] float life;
+    public float Score;
 
     void OnCollisionEnter(Collision collision)
     {
@@ -35,7 +36,10 @@ public abstract class Destructible : MonoBehaviour
             gameObject.SetActive(false);
         }
     }
-    public abstract void OnDestruction();
+    public virtual void OnDestruction()
+    {
+        EventSystemCustom.Instance.OnIncreaseScore.Invoke(Score);
+    }
 
     void AnimateDestruction()
     {

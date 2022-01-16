@@ -62,6 +62,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   life: 10
+  Score: 20
   forwardSpeed: 10
   fallSpeed: 2
   _damage: 200

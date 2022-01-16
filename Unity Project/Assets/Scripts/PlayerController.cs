@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float rotationSpeed;
     [SerializeField] float shootPower;
     [SerializeField] float shootRate;
+    public float Score;
     float MoveAmount { get => Time.deltaTime * moveSpeed; }
     float RotationAmount { get => Time.deltaTime * rotationSpeed; }
     public GameObject bulletPrefab, missilePrefab;
@@ -16,8 +17,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Transform barrelTranform, spawnPoint;
     [SerializeField] float autoLockDuration;
 
+    
+
     void Start()
     {
+        this.Score = 0;
         mainCam = Camera.main;
     }
 
