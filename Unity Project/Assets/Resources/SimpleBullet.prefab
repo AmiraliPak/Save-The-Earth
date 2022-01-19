@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1610776098730225039}
   - component: {fileID: 5534568808763167846}
   - component: {fileID: 6112078366002631844}
-  m_Layer: 2
+  m_Layer: 8
   m_Name: SimpleBullet
   m_TagString: Projectile
   m_Icon: {fileID: 0}
