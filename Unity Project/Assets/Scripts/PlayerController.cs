@@ -82,9 +82,21 @@ public class PlayerController : MonoBehaviour
     {
         Ray ray = Camera.main.ScreenPointToRay(mousePosition);
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, 500))
+        if (Physics.Raycast(ray, out hit, 500, 511))
             if (hit.collider != null)
                 return hit.collider.transform;
         return null;
+    }
+
+    void OnTriggerEnter(Collider collision)
+    {
+        if(collision.gameObject.CompareTag("ComboBox"))
+        {
+            var comboBox = collision.gameObject.GetComponentInParent<ComboBoxController>();
+            var combo = comboBox.Combo;
+            Debug.Log("Player: get combo: " + combo.GetType().ToString());
+            comboBox.Deactivate();
+            combo.ActivateCombo();
+        }
     }
 }
