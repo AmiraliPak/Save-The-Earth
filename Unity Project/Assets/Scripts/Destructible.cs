@@ -10,11 +10,13 @@ public abstract class Destructible : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Projectile"))
         {
-            if(!friendlyFire && collision.gameObject.name == "SimpleBullet") return;
             IProjectile projectile = collision.gameObject.GetComponent<IProjectile>();
             if(projectile == null) projectile = collision.gameObject.GetComponentInParent<IProjectile>();
-            Debug.Log(this.GetType().ToString() + " got hit: -" + projectile.Damage.ToString());
-            AddLife(-projectile.Damage);
+            if(friendlyFire || (collision.gameObject.name != "SimpleBullet(Clone)" && collision.gameObject.name != "Missile (Launched)(Clone)"))
+            {
+                Debug.Log(this.GetType().ToString() + " got hit: -" + projectile.Damage.ToString());
+                AddLife(-projectile.Damage);
+            }
             projectile.Deactivate();
         }
     }
