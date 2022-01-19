@@ -35,4 +35,9 @@ public class MeteorController : Destructible, IProjectile, ISpawnable
     {
         gameObject.SetActive(false);
     }
+
+    public override void TakeDamage()
+    {
+     
+    }
 }

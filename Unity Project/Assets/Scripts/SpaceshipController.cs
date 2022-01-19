@@ -71,5 +71,8 @@ public class SpaceshipController : Destructible, ISpawnable
         }
     }
 
-
+    public override void TakeDamage()
+    {
+       
+    }
 }

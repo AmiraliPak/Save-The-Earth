@@ -3,10 +3,10 @@
 // object with a life
 public abstract class Destructible : MonoBehaviour
 {
-    [SerializeField] float life;
+    public float life;
     public float Score;
 
-    void OnCollisionEnter(Collision collision)
+    public virtual void  OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.CompareTag("Projectile"))
         {
@@ -18,9 +18,10 @@ public abstract class Destructible : MonoBehaviour
         }
     }
 
-    void AddLife(float life)
+    protected void AddLife(float life)
     {
         this.life += life;
+        TakeDamage();
         // emit event
         CheckLife();
     }
@@ -41,6 +42,7 @@ public abstract class Destructible : MonoBehaviour
         EventSystemCustom.Instance.OnIncreaseScore.Invoke(Score);
     }
 
+    public abstract void TakeDamage();
     void AnimateDestruction()
     {
 
