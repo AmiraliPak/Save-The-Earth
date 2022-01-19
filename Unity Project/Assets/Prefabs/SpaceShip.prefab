@@ -131,6 +131,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 493e6f1c7cb6dd94ab8831ea09e79892, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &4141434916707444377
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5991330850320619105}
+  m_Layer: 0
+  m_Name: Spawn Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5991330850320619105
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4141434916707444377}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.242, z: -0}
+  m_LocalScale: {x: 0.6666667, y: 0.8333334, z: 0.6666667}
+  m_Children: []
+  m_Father: {fileID: 2697527670084196512}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5113248532874787623
 GameObject:
   m_ObjectHideFlags: 0
@@ -184,6 +214,7 @@ MonoBehaviour:
   shootRate: 5
   bulletPrefab: {fileID: 3706250003722026095, guid: 9e67b297a4f61e842aa3b6e9bfd04da8,
     type: 3}
+  spawnPoint: {fileID: 5991330850320619105}
 --- !u!54 &5113248532874787619
 Rigidbody:
   m_ObjectHideFlags: 0
