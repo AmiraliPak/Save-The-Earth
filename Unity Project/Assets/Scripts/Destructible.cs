@@ -5,7 +5,13 @@ public abstract class Destructible : MonoBehaviour
 {
     protected bool friendlyFire = true;
     public float life;
+    public float MaxLife { get; private set; }
     public float Score;
+
+    void Awake()
+    {
+        MaxLife = life;
+    }
 
     public virtual void  OnCollisionEnter(Collision collision)
     {
@@ -22,9 +28,10 @@ public abstract class Destructible : MonoBehaviour
         }
     }
 
-    protected void AddLife(float life)
+    public void AddLife(float life)
     {
         this.life += life;
+        if(this.life > MaxLife) this.life = MaxLife;
         TakeDamage();
         // emit event
         CheckLife();

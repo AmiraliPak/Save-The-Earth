@@ -391,7 +391,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b32c81e21d44be440a739fb54a265c16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  life: 1000000
+  life: 1000
   Score: 0
   healthBar: {fileID: 698192144}
 --- !u!1 &177848194
@@ -3560,7 +3560,7 @@ MonoBehaviour:
   - {fileID: 5113248532874787623, guid: 862e0a78975e48c42b27a8813148486f, type: 3}
   - {fileID: 4169042600909955175, guid: 5a47261c36e084340bf3db38eb201690, type: 3}
   - {fileID: 4927405472332023007, guid: 5088c2b8c63c07f4d90efddc9423e040, type: 3}
-  weights: 040000000200000001000000
+  weights: 04000000020000000a000000
 --- !u!4 &2082644721
 Transform:
   m_ObjectHideFlags: 0
