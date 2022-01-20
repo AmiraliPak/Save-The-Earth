@@ -6,6 +6,7 @@ public class AudioManager:MonoBehaviour
 {
     public static AudioManager instance;
     public Sound[] sounds;
+    AudioManager audioManager;
     private void Start()
     {
 
@@ -34,6 +35,7 @@ public class AudioManager:MonoBehaviour
             s.source.volume = s.volume;
             s.source.pitch = s.pitch;
             s.source.loop = s.loop;
+            s.source.spatialBlend = s.SpatialBlend;
         }
     }
 

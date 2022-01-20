@@ -1800,16 +1800,32 @@ MonoBehaviour:
   sounds:
   - Name: GameBackGroundSound
     clip: {fileID: 8300000, guid: e66f553c18f2ce747960acf005ec8ca7, type: 3}
-    volume: 0.2
+    volume: 0.025
     pitch: 1
     source: {fileID: 0}
     loop: 1
+    SpatialBlend: 0
   - Name: NormalShoot
-    clip: {fileID: 8300000, guid: 9cc99277f231e4adbbd91ff1821f526b, type: 3}
-    volume: 0.5
+    clip: {fileID: 8300000, guid: f095ed7fb8ed84caa814c14d6ea51fc0, type: 3}
+    volume: 1
     pitch: 1
     source: {fileID: 0}
-    loop: 1
+    loop: 0
+    SpatialBlend: 1
+  - Name: SpaceshipDestruction
+    clip: {fileID: 8300000, guid: 39ca2a65837f757469cfc09444ab93d4, type: 3}
+    volume: 1.5
+    pitch: 3
+    source: {fileID: 0}
+    loop: 0
+    SpatialBlend: 1
+  - Name: MeteorDestruction
+    clip: {fileID: 8300000, guid: 90f920c21a33d9344b1920c4614dc709, type: 3}
+    volume: 1.5
+    pitch: 3
+    source: {fileID: 0}
+    loop: 0
+    SpatialBlend: 1
 --- !u!1 &909826248
 GameObject:
   m_ObjectHideFlags: 0

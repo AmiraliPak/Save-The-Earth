@@ -6,7 +6,7 @@ public class Sound
 {
     public string Name;
     public AudioClip clip;
-    [Range(0f,1f)]
+    [Range(0f,2f)]
     public float volume;
     [Range(.1f, 3f)]
     public float pitch;
@@ -15,4 +15,10 @@ public class Sound
     public AudioSource source;
 
     public bool loop;
+
+    [Range(0f, 1f)]
+    public float SpatialBlend;
+
+    
+
 }

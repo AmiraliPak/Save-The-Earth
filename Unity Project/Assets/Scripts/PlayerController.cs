@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float autoLockDuration;
     Weapon[] weapons;
     [SerializeField] float turboSpeedUpRate, turboMaxDuration, turboRemainingTime;
+    AudioManager audioManager;
 
 
     void Start()
@@ -26,6 +27,7 @@ public class PlayerController : MonoBehaviour
         weapons[0] = new SimpleWeapon(shootPower, shootRate);
         weapons[1] = new MissileWeapon();
         RefillTurbo();
+        audioManager = FindObjectOfType<AudioManager>();
     }
 
     void Update()
@@ -51,16 +53,22 @@ public class PlayerController : MonoBehaviour
     void HandleShoot()
     {
         bool shootAllowed = aim != Vector3.zero && target?.position != Vector3.zero;
-        
-        for(int i = 0; i < weapons.Length; i++)
+
+        for (int i = 0; i < weapons.Length; i++)
         {
-            if(Input.GetMouseButton(i) && shootAllowed)
+            if (Input.GetMouseButton(i) && shootAllowed) { 
                 weapons[i].ActivateOnHold(aim, target, spawnPoint.position);
+            }
             else
                 weapons[i].DeactivateOnHold();
 
             if(Input.GetMouseButtonDown(i) && shootAllowed)
+            {
                 weapons[i].ActivateOnDown(aim, target, spawnPoint.position);
+                ShootSound();
+            }
+               
+                
             if(Input.GetMouseButtonUp(i))
                 weapons[i].DeactivateOnUp();
         }
@@ -112,4 +120,12 @@ public class PlayerController : MonoBehaviour
 
     public void SetWeapon(Weapon weapon, int slotNumber = 1) => weapons[slotNumber] = weapon;
     public void RefillTurbo() => turboRemainingTime = turboMaxDuration; // emit event update turbo time
+
+    private void ShootSound()
+    {
+        if (audioManager != null)
+        {
+            audioManager.Play("NormalShoot");
+        }
+    }
 }

@@ -18,6 +18,7 @@ public class SpaceshipController : Destructible, ISpawnable
     Transform body;
     Rigidbody rb;
     public GameObject ExplosionEffect;
+    AudioManager audioManager;
 
 
     void Start()
@@ -27,6 +28,7 @@ public class SpaceshipController : Destructible, ISpawnable
         body = transform.Find("Body");
         StartCoroutine(ShootCoroutine());
         StartCoroutine(RandGenCoroutine());
+        audioManager = FindObjectOfType<AudioManager>();
        
        
     }
@@ -50,6 +52,8 @@ public class SpaceshipController : Destructible, ISpawnable
         var bullet = GameObject.Instantiate(bulletPrefab, spawnPoint.position, Quaternion.identity);
         var bulletRb = bullet.GetComponent<Rigidbody>();
         bulletRb.AddForce(-body.up * shootPower, ForceMode.Impulse);
+       
+        
     }
 
     IEnumerator ShootCoroutine()
@@ -80,6 +84,10 @@ public class SpaceshipController : Destructible, ISpawnable
     public override void AnimateDestruction()
     {
         Instantiate(ExplosionEffect, this.body.position, this.body.rotation);
+        if (audioManager != null)
+        {
+            audioManager.Play("SpaceshipDestruction");
+        }
         StartCoroutine(DistroyEffect());
     }
 
