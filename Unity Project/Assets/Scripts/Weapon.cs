@@ -19,6 +19,7 @@ public abstract class Weapon: ICombo
         this.shootPower = shootPower;
         this.shootRate = shootRate;
         this.projectilePrefab = projectilePrefab;
+        
     }
     public abstract void ActivateOnHold(Vector3 aim, Transform target, Vector3 spawnPos);
     public abstract void ActivateOnDown(Vector3 aim, Transform target, Vector3 spawnPos);
@@ -28,11 +29,13 @@ public abstract class Weapon: ICombo
     {
         --ammoCount;
         // emit event update ammo count (Weapon Slot2)
+        EventSystemCustom.Instance.OnWeaponChange.Invoke(ammoCount);
     }
 
     public void ActivateCombo()
     {
         GameObject.Find("Player").GetComponent<PlayerController>().SetWeapon(this);
+        EventSystemCustom.Instance.OnWeaponChange.Invoke(ammoCount);
     }
 }
 

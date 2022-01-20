@@ -26,6 +26,8 @@ public class PlayerController : MonoBehaviour
         weapons = new Weapon[2];
         weapons[0] = new SimpleWeapon(shootPower, shootRate);
         weapons[1] = new MissileWeapon();
+        weapons[1].ActivateCombo();
+
         RefillTurbo();
         audioManager = FindObjectOfType<AudioManager>();
     }

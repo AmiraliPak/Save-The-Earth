@@ -15,6 +15,11 @@ public class UIManager : MonoBehaviour
     PlayerController player;
     public MassagePanelManager manager;
     public CollectScoreManager currscoreManager;
+    public WeaponManager weaponManager;
+    private void Awake()
+    {
+        EventSystemCustom.Instance.OnWeaponChange.AddListener(OnweaponUse);
+    }
     void Start()
     {
         
@@ -25,6 +30,7 @@ public class UIManager : MonoBehaviour
             EventSystemCustom.Instance.OnIncreaseScore.AddListener(IncreaseScoreBoard);
             EventSystemCustom.Instance.OnGameOver.AddListener(GameOver);
             EventSystemCustom.Instance.OnMessage.AddListener(MessageEmit);
+            
         }
        
     }
@@ -55,5 +61,8 @@ public class UIManager : MonoBehaviour
         currscoreManager.Setup(score);
     }
 
-
+    public void OnweaponUse(float score)
+    {
+        weaponManager.Setup(score);
+    }
 }
