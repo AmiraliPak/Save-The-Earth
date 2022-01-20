@@ -9,10 +9,16 @@ using UnityEngine.Events;
 public class MyfloatEvent : UnityEvent<float>
 {
 }
+
+public class MyStringEvent : UnityEvent<string>
+{
+}
 public sealed class EventSystemCustom
 {
     public MyfloatEvent OnIncreaseScore;
     public UnityEvent OnGameOver;
+    public MyStringEvent OnMessage;
+
     private static readonly EventSystemCustom instance = new EventSystemCustom();
     
     // Explicit static constructor to tell C# compiler
@@ -25,6 +31,7 @@ public sealed class EventSystemCustom
     {
        OnIncreaseScore = new MyfloatEvent();
         OnGameOver = new UnityEvent ();
+        OnMessage = new MyStringEvent();
     }
 
     public static EventSystemCustom Instance

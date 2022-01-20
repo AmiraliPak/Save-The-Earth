@@ -115,6 +115,7 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Player: get combo: " + combo.GetType().ToString());
             comboBox.Deactivate();
             combo.ActivateCombo();
+            EventSystemCustom.Instance.OnMessage.Invoke(combo.Name + "  Was  Acticated!");
         }
     }
 

@@ -18,6 +18,7 @@ public class ComboBoxController : MonoBehaviour, ISpawnable
         bodyRb = bodyTr.GetComponent<Rigidbody>();
         gravitate = true;
         Combo = RandomCombo();
+       
     }
 
     void FixedUpdate()

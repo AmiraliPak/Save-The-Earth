@@ -13,6 +13,7 @@ public class UIManager : MonoBehaviour
 
     GameObject obj;
     PlayerController player;
+    public MassagePanelManager manager;
     void Start()
     {
         
@@ -22,6 +23,7 @@ public class UIManager : MonoBehaviour
             player = obj.GetComponent<PlayerController>();
             EventSystemCustom.Instance.OnIncreaseScore.AddListener(IncreaseScoreBoard);
             EventSystemCustom.Instance.OnGameOver.AddListener(GameOver);
+            EventSystemCustom.Instance.OnMessage.AddListener(MessageEmit);
         }
        
     }
@@ -42,5 +44,8 @@ public class UIManager : MonoBehaviour
         gameover.SetUp(player.Score);
     }
 
-
+    public void MessageEmit(string message)
+    {
+        manager.Setup(message);
+    }
 }
