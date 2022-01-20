@@ -100,7 +100,7 @@ public class PlayerController : MonoBehaviour
     {
         Ray ray = Camera.main.ScreenPointToRay(mousePosition);
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, 500, 511))
+        if (Physics.Raycast(ray, out hit, 500, 255))
             if (hit.collider != null)
                 return hit.collider.transform;
         return null;
