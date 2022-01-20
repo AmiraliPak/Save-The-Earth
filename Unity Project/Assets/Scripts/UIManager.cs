@@ -14,6 +14,7 @@ public class UIManager : MonoBehaviour
     GameObject obj;
     PlayerController player;
     public MassagePanelManager manager;
+    public CollectScoreManager currscoreManager;
     void Start()
     {
         
@@ -36,7 +37,7 @@ public class UIManager : MonoBehaviour
             PlayerPrefs.SetFloat("High Score", player.Score);
         }
         FianalScoreText.text = player.Score.ToString();
-        CurreanScoreText.text = "+"+scoreToAdd.ToString();
+        CurrentScoreCollected(scoreToAdd);
         Debug.Log(player.Score);
     }
     public void GameOver()
@@ -48,4 +49,11 @@ public class UIManager : MonoBehaviour
     {
         manager.Setup(message);
     }
+
+    public void CurrentScoreCollected(float score)
+    {
+        currscoreManager.Setup(score);
+    }
+
+
 }
