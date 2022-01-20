@@ -216,6 +216,8 @@ MonoBehaviour:
   bulletPrefab: {fileID: 3706250003722026095, guid: 9e67b297a4f61e842aa3b6e9bfd04da8,
     type: 3}
   spawnPoint: {fileID: 5991330850320619105}
+  ExplosionEffect: {fileID: 1000011128802252, guid: 96730f8640590934eacb6f860058e7f9,
+    type: 3}
 --- !u!54 &5113248532874787619
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -391,7 +391,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b32c81e21d44be440a739fb54a265c16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  life: 500
+  life: 1000000
   Score: 0
   healthBar: {fileID: 698192144}
 --- !u!1 &177848194
@@ -1800,7 +1800,7 @@ MonoBehaviour:
   sounds:
   - Name: GameBackGroundSound
     clip: {fileID: 8300000, guid: e66f553c18f2ce747960acf005ec8ca7, type: 3}
-    volume: 0.3
+    volume: 0.2
     pitch: 1
     source: {fileID: 0}
     loop: 1

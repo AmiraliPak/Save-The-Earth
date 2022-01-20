@@ -17,8 +17,9 @@ public class SpaceshipController : Destructible, ISpawnable
     [SerializeField] Transform spawnPoint;
     Transform body;
     Rigidbody rb;
-   
-   
+    public GameObject ExplosionEffect;
+
+
     void Start()
     {
        
@@ -74,5 +75,17 @@ public class SpaceshipController : Destructible, ISpawnable
     public override void TakeDamage()
     {
        
+    }
+
+    public override void AnimateDestruction()
+    {
+        Instantiate(ExplosionEffect, this.body.position, this.body.rotation);
+        StartCoroutine(DistroyEffect());
+    }
+
+    IEnumerator DistroyEffect()
+    {
+        yield return new WaitForSeconds(1);
+        GameObject.Destroy(ExplosionEffect);
     }
 }

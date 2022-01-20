@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 // object with a life
 public abstract class Destructible : MonoBehaviour
@@ -7,6 +8,7 @@ public abstract class Destructible : MonoBehaviour
     public float life;
     public float MaxLife { get; private set; }
     public float Score;
+   // public GameObject ExplosionEffect;
 
     void Awake()
     {
@@ -44,8 +46,12 @@ public abstract class Destructible : MonoBehaviour
             Debug.Log(this.GetType().ToString() + " life zero: Object deactivated");
             AnimateDestruction();
             OnDestruction();
+
             // emit event
             gameObject.SetActive(false);
+
+
+
         }
     }
     public virtual void OnDestruction()
@@ -54,8 +60,12 @@ public abstract class Destructible : MonoBehaviour
     }
 
     public abstract void TakeDamage();
-    void AnimateDestruction()
-    {
+    public abstract void AnimateDestruction();
+    //public void AnimateDestruction() {
 
-    }
+    //    Instantiate(ExplosionEffect, this.transform.position,this.transform.rotation);
+    //}
+
+
+
 }

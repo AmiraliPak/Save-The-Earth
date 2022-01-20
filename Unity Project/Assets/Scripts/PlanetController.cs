@@ -23,4 +23,9 @@ public class PlanetController : Destructible
     {
         healthBar.SetValue(this.life);
     }
+
+    public override void AnimateDestruction()
+    {
+       
+    }
 }
