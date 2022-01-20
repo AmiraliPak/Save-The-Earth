@@ -13,15 +13,18 @@ public class MeteorController : Destructible, IProjectile, ISpawnable
     public float MaxHeight { get => 200; }
     Transform body, visuals;
     Vector3 forwardVector, downwardVector;
-     GameObject playerObj;
-     
+    GameObject playerObj;
+    public GameObject ExplosionEffect;
+    AudioManager audioManager;
+
     void Start()
     {
         body = transform.Find("Body");
         transform.Rotate(0, UnityEngine.Random.Range(0, 360), 0);
         forwardVector = new Vector3(1f, 0, 0);
         downwardVector = new Vector3(0, -1f);
-       
+        audioManager = FindObjectOfType<AudioManager>();
+
     }
     void FixedUpdate()
     {
@@ -38,6 +41,22 @@ public class MeteorController : Destructible, IProjectile, ISpawnable
 
     public override void TakeDamage()
     {
-     
+
+    }
+
+    public override void AnimateDestruction()
+    {
+        Instantiate(ExplosionEffect, this.body.position, this.body.rotation);
+        if (audioManager != null)
+        {
+            audioManager.Play("MeteorDestruction");
+        }
+        StartCoroutine(DistroyEffect());
+    }
+
+    IEnumerator DistroyEffect()
+    {
+        yield return new WaitForSeconds(1);
+        GameObject.Destroy(ExplosionEffect);
     }
 }
