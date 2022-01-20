@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float rotationSpeed;
     [SerializeField] float shootPower;
     [SerializeField] float shootRate;
+    public float Score;
     float MoveAmount { get => Time.deltaTime * moveSpeed; }
     float RotationAmount { get => Time.deltaTime * rotationSpeed; }
     Camera mainCam;
@@ -15,8 +16,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float autoLockDuration;
     Weapon[] weapons;
 
+    
+
     void Start()
     {
+        this.Score = 0;
         mainCam = Camera.main;
         weapons = new Weapon[2];
         weapons[0] = new SimpleWeapon(shootPower, shootRate);
