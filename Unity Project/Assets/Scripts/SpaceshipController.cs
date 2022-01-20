@@ -14,6 +14,7 @@ public class SpaceshipController : Destructible, ISpawnable
     float MoveAmount { get => Time.deltaTime * moveSpeed; }
     float RotationAmount { get => Time.deltaTime * rotationSpeed; }
     public GameObject bulletPrefab;
+    [SerializeField] Transform spawnPoint;
     Transform body;
     Rigidbody rb;
    
@@ -45,8 +46,7 @@ public class SpaceshipController : Destructible, ISpawnable
 
     void ShootWeapon()
     {
-        var bulletPos = body.position - 2*body.up;
-        var bullet = GameObject.Instantiate(bulletPrefab, bulletPos, Quaternion.identity);
+        var bullet = GameObject.Instantiate(bulletPrefab, spawnPoint.position, Quaternion.identity);
         var bulletRb = bullet.GetComponent<Rigidbody>();
         bulletRb.AddForce(-body.up * shootPower, ForceMode.Impulse);
     }

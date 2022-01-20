@@ -45,7 +45,7 @@ public class ObjectSpawner : MonoBehaviour
         var body = obj.transform.Find("Body");
         body.transform.localPosition = new Vector3(0, height);
         obj.transform.rotation = rotations;
-        Debug.Log("Object spawned");
+        Debug.Log(obj.GetComponent<MonoBehaviour>().GetType().ToString()+" Object spawned");
     }
 
     IEnumerator SpawnCoroutine()

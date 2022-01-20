@@ -3,6 +3,7 @@
 // object with a life
 public abstract class Destructible : MonoBehaviour
 {
+    protected bool friendlyFire = true;
     public float life;
     public float Score;
 
@@ -12,8 +13,11 @@ public abstract class Destructible : MonoBehaviour
         {
             IProjectile projectile = collision.gameObject.GetComponent<IProjectile>();
             if(projectile == null) projectile = collision.gameObject.GetComponentInParent<IProjectile>();
-            Debug.Log(this.GetType().ToString() + " got hit: -" + projectile.Damage.ToString());
-            AddLife(-projectile.Damage);
+            if(friendlyFire || (collision.gameObject.name != "SimpleBullet(Clone)" && collision.gameObject.name != "Missile (Launched)(Clone)"))
+            {
+                Debug.Log(this.GetType().ToString() + " got hit: -" + projectile.Damage.ToString());
+                AddLife(-projectile.Damage);
+            }
             projectile.Deactivate();
         }
     }

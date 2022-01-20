@@ -8,6 +8,7 @@ public class PlanetController : Destructible
     public HealthBar healthBar;
     void Start()
     {
+        friendlyFire = false;
         healthBar.SetMaxValue(this.life);
     }
     public override void OnDestruction()

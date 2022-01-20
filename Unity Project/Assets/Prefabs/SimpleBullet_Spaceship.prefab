@@ -14,8 +14,8 @@ GameObject:
   - component: {fileID: 8955465467707112140}
   - component: {fileID: 2800158375361217317}
   - component: {fileID: 4521863420900492263}
-  m_Layer: 0
-  m_Name: SimpleBullet 1
+  m_Layer: 2
+  m_Name: SimpleBullet_Spaceship
   m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
