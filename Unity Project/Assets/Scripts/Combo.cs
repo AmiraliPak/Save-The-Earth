@@ -16,3 +16,22 @@ public class EarthShieldCombo : ICombo
         EarthShield.SetActive(true);
     }
 }
+
+public class HealthIncreaseCombo : ICombo
+{
+    static float healthIncreasePercent = 10f;
+    public void ActivateCombo()
+    {
+        var pc = GameObject.Find("EarthMedium").GetComponent<PlanetController>();
+        pc.AddLife(healthIncreasePercent * pc.MaxLife / 100f);
+    }
+}
+
+public class TurboRefillCombo : ICombo
+{
+    public void ActivateCombo()
+    {
+        var pc = GameObject.Find("Player").GetComponent<PlayerController>();
+        pc.RefillTurbo();
+    }
+}

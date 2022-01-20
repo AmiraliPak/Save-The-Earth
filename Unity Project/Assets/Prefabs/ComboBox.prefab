@@ -173,6 +173,11 @@ PrefabInstance:
       propertyPath: m_TagString
       value: ComboBox
       objectReference: {fileID: 0}
+    - target: {fileID: 7301533288255214060, guid: 1d91a76fc1909bf42b2e2ce0b229ffa2,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1d91a76fc1909bf42b2e2ce0b229ffa2, type: 3}
 --- !u!1 &5604329670677385711 stripped
@@ -203,6 +208,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TagString
       value: ComboBox
+      objectReference: {fileID: 0}
+    - target: {fileID: 1420347997019930370, guid: 73977462fbd842d4e84221bc14cf5828,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6557148286031245656, guid: 73977462fbd842d4e84221bc14cf5828,
         type: 3}
