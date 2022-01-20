@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Weapon
+public abstract class Weapon: ICombo
 {
     [SerializeField] protected float ammoCount;
     [SerializeField] protected float shootPower;
@@ -25,6 +25,11 @@ public abstract class Weapon
     {
         --ammoCount;
         // emit event update ammo count (Weapon Slot2)
+    }
+
+    public void ActivateCombo()
+    {
+        GameObject.Find("Player").GetComponent<PlayerController>().SetWeapon(this);
     }
 }
 

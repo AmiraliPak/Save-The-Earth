@@ -41,11 +41,12 @@ public class ComboBoxController : MonoBehaviour, ISpawnable
 
     ICombo RandomCombo()
     {
-        var rand = UnityEngine.Random.Range(0, 2);
+        var rand = UnityEngine.Random.Range(0, 3);
         switch (rand)
         {
             case 0: return new EarthShieldCombo();
             case 1: return new HealthIncreaseCombo();
+            case 2: return new MissileWeapon();
             default: return null;
         }
     }
