@@ -9,6 +9,7 @@ public class ObjectSpawner : MonoBehaviour
     public float SpawnInterval;
     [SerializeField] GameObject[] prefabs;
     [SerializeField] int[] weights;
+    [SerializeField] TargetIndicator indicator;
     int randomRange;
     int[] maxNums;
     float[] minHeights, maxHeights;
