@@ -248,7 +248,7 @@ GameObject:
   - component: {fileID: 5113248533945242332}
   - component: {fileID: 5113248533945242329}
   m_Layer: 0
-  m_Name: Body
+  m_Name: Body-old
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -426,7 +426,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: fca201fb94330834c9ca77a2688e4cb2,
         type: 3}
       propertyPath: m_Name
-      value: Low_poly_UFO
+      value: Body
       objectReference: {fileID: 0}
     - target: {fileID: 6712287101675318513, guid: fca201fb94330834c9ca77a2688e4cb2,
         type: 3}
