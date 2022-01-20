@@ -3710,6 +3710,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6448497756008917804, guid: 39034202726b3044eb46980cf9012ca0,
         type: 3}
+    - target: {fileID: 9167851073498143540, guid: 3382846d53b30ff4192d5fe168666b44,
+        type: 3}
+      propertyPath: turboSpeedUpRate
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9167851073498143540, guid: 3382846d53b30ff4192d5fe168666b44,
+        type: 3}
+      propertyPath: turboMaxDuration
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 9167851073498143541, guid: 3382846d53b30ff4192d5fe168666b44,
         type: 3}
       propertyPath: m_RootOrder

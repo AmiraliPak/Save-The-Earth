@@ -26,3 +26,12 @@ public class HealthIncreaseCombo : ICombo
         pc.AddLife(healthIncreasePercent * pc.MaxLife / 100f);
     }
 }
+
+public class TurboRefillCombo : ICombo
+{
+    public void ActivateCombo()
+    {
+        var pc = GameObject.Find("Player").GetComponent<PlayerController>();
+        pc.RefillTurbo();
+    }
+}

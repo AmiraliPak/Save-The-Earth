@@ -15,8 +15,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Transform barrelTranform, spawnPoint;
     [SerializeField] float autoLockDuration;
     Weapon[] weapons;
+    [SerializeField] float turboSpeedUpRate, turboMaxDuration, turboRemainingTime;
 
-    
 
     void Start()
     {
@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
         weapons = new Weapon[2];
         weapons[0] = new SimpleWeapon(shootPower, shootRate);
         weapons[1] = new MissileWeapon();
+        RefillTurbo();
     }
 
     void Update()
@@ -37,6 +38,11 @@ public class PlayerController : MonoBehaviour
     void HandleMovement()
     {
         var verticalMovement = Input.GetAxis("Vertical") * MoveAmount;
+        if(turboRemainingTime > 0f && Input.GetKey(KeyCode.Space)){
+            turboRemainingTime -= Time.deltaTime;
+            // emit event update turbo time
+            verticalMovement *= turboSpeedUpRate;
+        }
         var horizontalMovement = Input.GetAxis("Horizontal") * RotationAmount;
         // var rotationMovement = Input.GetAxis("Mouse X") * RotationAmount;
         transform.Rotate(new Vector3(-verticalMovement, horizontalMovement));
@@ -103,4 +109,7 @@ public class PlayerController : MonoBehaviour
             combo.ActivateCombo();
         }
     }
+
+    public void SetWeapon(Weapon weapon, int slotNumber = 1) => weapons[slotNumber] = weapon;
+    public void RefillTurbo() => turboRemainingTime = turboMaxDuration; // emit event update turbo time
 }
