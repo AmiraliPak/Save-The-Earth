@@ -11,7 +11,7 @@ public interface ICombo
 public class EarthShieldCombo : ICombo
 {
     public static GameObject EarthShield{ set; private get; }
-    public string Name { get => "EarthShield"; set => Name = value; }
+    public string Name { get => "Earth Shield"; set => Name = value; }
 
    
        
@@ -27,7 +27,7 @@ public class HealthIncreaseCombo : ICombo
 {
     static float healthIncreasePercent = 10f;
 
-    public string Name { get => "HealthIncrease"; set => Name = value; }
+    public string Name { get => "Extra Health"; set => Name = value; }
        
     
 
@@ -41,7 +41,7 @@ public class HealthIncreaseCombo : ICombo
 public class TurboRefillCombo : ICombo
 {
 
-    public string Name { get => "TurboRefill"; set => Name = value; }
+    public string Name { get => "Turbo Refill"; set => Name = value; }
     
     
 
