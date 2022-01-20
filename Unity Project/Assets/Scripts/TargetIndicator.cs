@@ -5,16 +5,12 @@ using UnityEngine;
 
 public class TargetIndicator : MonoBehaviour
 {
-    List<(GameObject,GameObject)> targets = new List<(GameObject,GameObject)>(); // (real target, corresponding indicator target) 
+    List<(GameObject,GameObject)> targets = new List<(GameObject,GameObject)>(); // (real target body, corresponding indicator target) 
     [SerializeField] GameObject indicatorTargetPrefab;
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
+    
     void Update()
     {
+        Debug.Log("targets count: " + targets.Count);
         for (int i = 0; i < targets.Count; i++)
         {
             var (rt, it) = targets[i];
@@ -31,16 +27,19 @@ public class TargetIndicator : MonoBehaviour
 
     void UpdateIndicator(GameObject rt, GameObject it)
     {
-        it.transform.LookAt(rt.transform);
-        it.transform.rotation *= new Quaternion(1f, 0f, 0f, 0f);
+        var vect = rt.transform.position - transform.position;
+        var vect2 = Vector3.ProjectOnPlane(vect, -transform.forward);
+        vect2.Normalize();
+        vect2 *= vect.magnitude;
+        it.transform.LookAt(it.transform.position + vect2, transform.forward);
     }
 
-    bool TryAddTarget(GameObject target)
+    public bool TryAddTarget(GameObject target)
     {
         if(!target.CompareTag("SpaceShip") || !target.activeInHierarchy)
             return false;
         var it = Instantiate(indicatorTargetPrefab, transform);
-        targets.Add((target, it));
+        targets.Add((target.transform.Find("Body").gameObject, it));
         return true;
     }
 
