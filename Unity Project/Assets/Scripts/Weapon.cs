@@ -8,7 +8,7 @@ public abstract class Weapon: ICombo
     [SerializeField] protected float shootPower;
     [SerializeField] protected float shootRate;
     protected GameObject projectilePrefab;
-    public string Name { get => "Weapon"; set => Name = value; }
+    public string Name { get => "Missile Refill"; set => Name = value; }
     
     
     // Image WeaponIcon

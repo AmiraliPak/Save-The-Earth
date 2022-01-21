@@ -36,6 +36,7 @@ public class MeteorController : Destructible, IProjectile, ISpawnable
 
     public void Deactivate()
     {
+        AnimateDestruction();
         gameObject.SetActive(false);
     }
 

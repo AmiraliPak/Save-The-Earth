@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     Weapon[] weapons;
     [SerializeField] float turboSpeedUpRate, turboMaxDuration, turboRemainingTime;
     AudioManager audioManager;
+    [SerializeField] Renderer[] tankParts;
 
 
     void Start()
@@ -30,6 +31,7 @@ public class PlayerController : MonoBehaviour
 
         RefillTurbo();
         audioManager = FindObjectOfType<AudioManager>();
+        SetColor(audioManager.tankColor);
     }
 
     void Update()
@@ -120,7 +122,7 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Player: get combo: " + combo.GetType().ToString());
             comboBox.Deactivate();
             combo.ActivateCombo();
-            EventSystemCustom.Instance.OnMessage.Invoke(combo.Name + "  Was  Acticated!");
+            EventSystemCustom.Instance.OnMessage.Invoke(combo.Name + " Activated!");
         }
     }
 
@@ -139,4 +141,20 @@ public class PlayerController : MonoBehaviour
             audioManager.Play("NormalShoot");
         }
     }
+
+    public void SetColor(TankColor tankColor)
+    {
+        var materialName = "CTF_Mat_TankFree_" + tankColor;
+        var material = Resources.Load(materialName, typeof(Material)) as Material;
+        for(int i = 0; i < tankParts.Length; i++)
+            tankParts[i].material = material;
+    }
+}
+
+public enum TankColor
+{
+    Red = 1,
+    Green = 2,
+    Blue = 3,
+    Yel = 0
 }
