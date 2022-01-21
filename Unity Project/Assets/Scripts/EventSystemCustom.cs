@@ -19,6 +19,7 @@ public sealed class EventSystemCustom
     public UnityEvent OnGameOver;
     public MyStringEvent OnMessage;
     public MyfloatEvent OnWeaponChange;
+    public MyfloatEvent OnTimerChange;
 
     private static readonly EventSystemCustom instance = new EventSystemCustom();
     
@@ -34,6 +35,7 @@ public sealed class EventSystemCustom
         OnGameOver = new UnityEvent ();
         OnMessage = new MyStringEvent();
         OnWeaponChange = new MyfloatEvent();
+        OnTimerChange= new MyfloatEvent();
     }
 
     public static EventSystemCustom Instance

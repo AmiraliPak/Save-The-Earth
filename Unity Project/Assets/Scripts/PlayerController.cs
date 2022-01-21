@@ -44,7 +44,10 @@ public class PlayerController : MonoBehaviour
         var verticalMovement = Input.GetAxis("Vertical") * MoveAmount;
         if(turboRemainingTime > 0f && Input.GetKey(KeyCode.Space)){
             turboRemainingTime -= Time.deltaTime;
+            Debug.Log(turboRemainingTime);
             // emit event update turbo time
+            var tmp = (turboRemainingTime / turboMaxDuration) * 100;
+            EventSystemCustom.Instance.OnTimerChange.Invoke(tmp);
             verticalMovement *= turboSpeedUpRate;
         }
         var horizontalMovement = Input.GetAxis("Horizontal") * RotationAmount;
@@ -122,7 +125,12 @@ public class PlayerController : MonoBehaviour
     }
 
     public void SetWeapon(Weapon weapon, int slotNumber = 1) => weapons[slotNumber] = weapon;
-    public void RefillTurbo() => turboRemainingTime = turboMaxDuration; // emit event update turbo time
+    public void RefillTurbo() {
+      turboRemainingTime = turboMaxDuration;
+        // emit event update turbo time
+        var tmp = (turboRemainingTime / turboMaxDuration) * 100;
+        EventSystemCustom.Instance.OnTimerChange.Invoke(tmp);
+    } 
 
     private void ShootSound()
     {
