@@ -12,7 +12,7 @@ public class MainMenuManager : MonoBehaviour
 
     public void QuitGame()
     {
-        Debug.Log("Quited");
+        // Debug.Log("Quited");
         Application.Quit();
     }
 }

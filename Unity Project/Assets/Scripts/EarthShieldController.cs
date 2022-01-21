@@ -30,7 +30,7 @@ public class EarthShieldController : MonoBehaviour
             if(collision.gameObject.name == "SimpleBullet") return;
             IProjectile projectile = collision.gameObject.GetComponent<IProjectile>();
             if(projectile == null) projectile = collision.gameObject.GetComponentInParent<IProjectile>();
-            Debug.Log("Shield got hit by " + projectile.GetType().ToString());
+            // Debug.Log("Shield got hit by " + projectile.GetType().ToString());
             projectile.Deactivate();
         }
     }

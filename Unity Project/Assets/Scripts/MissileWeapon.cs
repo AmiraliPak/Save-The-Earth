@@ -14,12 +14,12 @@ public class MissileWeapon : Weapon
     {
         if(target == null)
         {
-            Debug.Log("MissileWeapon: Target not locked");
+            // Debug.Log("MissileWeapon: Target not locked");
             return;
         }
         if(ammoCount == 0)
         {
-            Debug.Log("MissileWeapon: No Ammo");
+            // Debug.Log("MissileWeapon: No Ammo");
             return;
         }
 

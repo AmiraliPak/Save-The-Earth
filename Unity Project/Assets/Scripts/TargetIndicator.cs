@@ -10,7 +10,7 @@ public class TargetIndicator : MonoBehaviour
     
     void Update()
     {
-        Debug.Log("targets count: " + targets.Count);
+        // Debug.Log("targets count: " + targets.Count);
         for (int i = 0; i < targets.Count; i++)
         {
             var (rt, it) = targets[i];

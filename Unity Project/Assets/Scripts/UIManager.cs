@@ -45,7 +45,7 @@ public class UIManager : MonoBehaviour
         }
         FianalScoreText.text = player.Score.ToString();
         CurrentScoreCollected(scoreToAdd);
-        Debug.Log(player.Score);
+        // Debug.Log(player.Score);
     }
     public void GameOver()
     {

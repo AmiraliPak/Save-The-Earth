@@ -46,7 +46,7 @@ public class PlayerController : MonoBehaviour
         var verticalMovement = Input.GetAxis("Vertical") * MoveAmount;
         if(turboRemainingTime > 0f && Input.GetKey(KeyCode.Space)){
             turboRemainingTime -= Time.deltaTime;
-            Debug.Log(turboRemainingTime);
+            // Debug.Log(turboRemainingTime);
             // emit event update turbo time
             var tmp = (turboRemainingTime / turboMaxDuration) * 100;
             EventSystemCustom.Instance.OnTimerChange.Invoke(tmp);
@@ -119,7 +119,7 @@ public class PlayerController : MonoBehaviour
         {
             var comboBox = collision.gameObject.GetComponentInParent<ComboBoxController>();
             var combo = comboBox.Combo;
-            Debug.Log("Player: get combo: " + combo.GetType().ToString());
+            // Debug.Log("Player: get combo: " + combo.GetType().ToString());
             comboBox.Deactivate();
             combo.ActivateCombo();
             EventSystemCustom.Instance.OnMessage.Invoke(combo.Name + " Activated!");

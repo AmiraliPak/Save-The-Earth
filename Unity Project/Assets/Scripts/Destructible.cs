@@ -23,7 +23,7 @@ public abstract class Destructible : MonoBehaviour
             if(projectile == null) projectile = collision.gameObject.GetComponentInParent<IProjectile>();
             if(friendlyFire || (collision.gameObject.name != "SimpleBullet(Clone)" && collision.gameObject.name != "Missile (Launched)(Clone)"))
             {
-                Debug.Log(this.GetType().ToString() + " got hit: -" + projectile.Damage.ToString());
+                // Debug.Log(this.GetType().ToString() + " got hit: -" + projectile.Damage.ToString());
                 AddLife(-projectile.Damage);
             }
             projectile.Deactivate();
@@ -43,7 +43,7 @@ public abstract class Destructible : MonoBehaviour
     {
         if (life <= 0f)
         {
-            Debug.Log(this.GetType().ToString() + " life zero: Object deactivated");
+            // Debug.Log(this.GetType().ToString() + " life zero: Object deactivated");
             AnimateDestruction();
             OnDestruction();
 

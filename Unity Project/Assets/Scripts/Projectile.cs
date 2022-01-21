@@ -15,7 +15,7 @@ public class Projectile : MonoBehaviour, IProjectile
 
     void OnCollisionEnter(Collision collision)
     {
-        Debug.Log(this.GetType().ToString() + " hit: Object deactivated");
+        // Debug.Log(this.GetType().ToString() + " hit: Object deactivated");
         // destuction animation
         // Deactivate();
     }

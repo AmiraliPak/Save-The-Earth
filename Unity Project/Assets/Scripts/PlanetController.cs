@@ -13,7 +13,7 @@ public class PlanetController : Destructible
     }
     public override void OnDestruction()
     {
-        Debug.Log("Planet Destroyed! GAME OVER");
+        // Debug.Log("Planet Destroyed! GAME OVER");
         // emit event ?
         EventSystemCustom.Instance.OnGameOver.Invoke();
         // UnityEditor.EditorApplication.isPlaying = false;
