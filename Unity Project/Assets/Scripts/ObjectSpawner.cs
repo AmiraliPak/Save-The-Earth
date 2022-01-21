@@ -31,6 +31,10 @@ public class ObjectSpawner : MonoBehaviour
         }
         randomRange = sum;
     }
+    void Start()
+    {
+        Spawn(prefabs[0], 60f, Quaternion.Euler(-5.86f, 46.17f, 0f));
+    }
     void OnEnable() => StartCoroutine(SpawnCoroutine());
 
     int SelectRandomPrefabIndex(){
@@ -53,6 +57,7 @@ public class ObjectSpawner : MonoBehaviour
     IEnumerator SpawnCoroutine()
     {
         while (true){
+            yield return new WaitForSeconds(SpawnInterval);
             var index = SelectRandomPrefabIndex();
             float height = UnityEngine.Random.Range(minHeights[index], maxHeights[index]);
             Quaternion rotations = Quaternion.Euler(
@@ -61,7 +66,6 @@ public class ObjectSpawner : MonoBehaviour
                 UnityEngine.Random.Range(0, 360)
             );
             Spawn(prefabs[index], height, rotations);
-            yield return new WaitForSeconds(SpawnInterval);
         }
     }
 }
