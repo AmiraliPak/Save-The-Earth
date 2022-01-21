@@ -1,24 +1,40 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 // object with a life
 public abstract class Destructible : MonoBehaviour
 {
-    [SerializeField] float life;
+    protected bool friendlyFire = true;
+    public float life;
+    public float MaxLife { get; private set; }
+    public float Score;
+   // public GameObject ExplosionEffect;
 
-    void OnCollisionEnter(Collision collision)
+    void Awake()
+    {
+        MaxLife = life;
+    }
+
+    public virtual void  OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.CompareTag("Projectile"))
         {
-            Projectile projectile = collision.gameObject.GetComponent<Projectile>();
-            Debug.Log(this.GetType().ToString() + " got hit: -" + projectile.Damage.ToString());
-            AddLife(-projectile.Damage);
+            IProjectile projectile = collision.gameObject.GetComponent<IProjectile>();
+            if(projectile == null) projectile = collision.gameObject.GetComponentInParent<IProjectile>();
+            if(friendlyFire || (collision.gameObject.name != "SimpleBullet(Clone)" && collision.gameObject.name != "Missile (Launched)(Clone)"))
+            {
+                // Debug.Log(this.GetType().ToString() + " got hit: -" + projectile.Damage.ToString());
+                AddLife(-projectile.Damage);
+            }
             projectile.Deactivate();
         }
     }
 
-    void AddLife(float life)
+    public void AddLife(float life)
     {
         this.life += life;
+        if(this.life > MaxLife) this.life = MaxLife;
+        TakeDamage();
         // emit event
         CheckLife();
     }
@@ -27,17 +43,29 @@ public abstract class Destructible : MonoBehaviour
     {
         if (life <= 0f)
         {
-            Debug.Log(this.GetType().ToString() + " life zero: Object deactivated");
+            // Debug.Log(this.GetType().ToString() + " life zero: Object deactivated");
             AnimateDestruction();
             OnDestruction();
+
             // emit event
             gameObject.SetActive(false);
+
+
+
         }
     }
-    public abstract void OnDestruction();
-
-    void AnimateDestruction()
+    public virtual void OnDestruction()
     {
-
+        EventSystemCustom.Instance.OnIncreaseScore.Invoke(Score);
     }
+
+    public abstract void TakeDamage();
+    public abstract void AnimateDestruction();
+    //public void AnimateDestruction() {
+
+    //    Instantiate(ExplosionEffect, this.transform.position,this.transform.rotation);
+    //}
+
+
+
 }

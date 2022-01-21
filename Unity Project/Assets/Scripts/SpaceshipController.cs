@@ -3,8 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpaceshipController : Destructible
+public class SpaceshipController : Destructible, ISpawnable
 {
+    public float MinHeight { get => 58; }
+    public float MaxHeight { get => 63; }
     [SerializeField] float moveSpeed;
     [SerializeField] float rotationSpeed;
     [SerializeField] float shootPower;
@@ -12,13 +14,23 @@ public class SpaceshipController : Destructible
     float MoveAmount { get => Time.deltaTime * moveSpeed; }
     float RotationAmount { get => Time.deltaTime * rotationSpeed; }
     public GameObject bulletPrefab;
+    [SerializeField] Transform spawnPoint;
     Transform body;
+    Rigidbody rb;
+    public GameObject ExplosionEffect;
+    AudioManager audioManager;
+
 
     void Start()
     {
+       
+        rb = GetComponent<Rigidbody>();
         body = transform.Find("Body");
         StartCoroutine(ShootCoroutine());
         StartCoroutine(RandGenCoroutine());
+        audioManager = FindObjectOfType<AudioManager>();
+       
+       
     }
 
     void Update()
@@ -32,15 +44,16 @@ public class SpaceshipController : Destructible
         var verticalMovement = rand1 * MoveAmount;
         var horizontalMovement = rand2 * MoveAmount;
         var rotationMovement = rand3 * RotationAmount;
-        transform.Rotate(new Vector3(-verticalMovement, rotationMovement, horizontalMovement));
+        rb.MoveRotation(rb.rotation * Quaternion.Euler(-verticalMovement, rotationMovement, horizontalMovement));
     }
 
     void ShootWeapon()
     {
-        var bulletPos = body.position - body.up;
-        var bullet = GameObject.Instantiate(bulletPrefab, bulletPos, Quaternion.identity);
+        var bullet = GameObject.Instantiate(bulletPrefab, spawnPoint.position, Quaternion.identity);
         var bulletRb = bullet.GetComponent<Rigidbody>();
         bulletRb.AddForce(-body.up * shootPower, ForceMode.Impulse);
+       
+        
     }
 
     IEnumerator ShootCoroutine()
@@ -63,8 +76,24 @@ public class SpaceshipController : Destructible
         }
     }
 
-    public override void OnDestruction()
+    public override void TakeDamage()
     {
-        
+       
+    }
+
+    public override void AnimateDestruction()
+    {
+        Instantiate(ExplosionEffect, this.body.position, this.body.rotation);
+        if (audioManager != null)
+        {
+            audioManager.Play("SpaceshipDestruction");
+        }
+        StartCoroutine(DistroyEffect());
+    }
+
+    IEnumerator DistroyEffect()
+    {
+        yield return new WaitForSeconds(1);
+        GameObject.Destroy(ExplosionEffect);
     }
 }

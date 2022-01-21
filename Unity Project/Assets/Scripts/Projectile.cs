@@ -1,15 +1,21 @@
 ﻿using UnityEngine;
 
-// bullets and asteroids : deal damage on impact, get destroyed afterwards
-public class Projectile : MonoBehaviour
+// bullets : deal damage on impact, get destroyed afterwards
+public class Projectile : MonoBehaviour, IProjectile
 {
     [SerializeField] float _damage;
     public float Damage { get => _damage; }
     // GameObject DestructionPrefab;
+    protected Rigidbody rb;
+
+    void Awake()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
 
     void OnCollisionEnter(Collision collision)
     {
-        Debug.Log(this.GetType().ToString() + " hit: Object deactivated");
+        // Debug.Log(this.GetType().ToString() + " hit: Object deactivated");
         // destuction animation
         // Deactivate();
     }
@@ -23,4 +29,10 @@ public class Projectile : MonoBehaviour
     {
         gameObject.SetActive(false);
     }
+}
+
+public interface IProjectile
+{
+    float Damage { get; }
+    void Deactivate();
 }
